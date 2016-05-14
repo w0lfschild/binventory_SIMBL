@@ -1,4 +1,4 @@
 binventory
 ===
-Show the number of files in trash as badge on the trash icon.
+Show the number of files in trash as badge on the trash icon.    
 https://github.com/ParasiteTeam
