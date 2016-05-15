@@ -27,40 +27,19 @@ ZKSwizzleInterface(WBTrashTile, DOCKTrashTile, NSObject)
 @implementation WBTrashTile
 
 - (void)dk_updateCount {
-    NSUInteger x = -1;
+    long x = 0;
     
     for (NSURL *url in Trashes)
-            x += [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:[url path] error:nil] count];
+    {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/.DS_Store", url.path]])
+            x -= 1;
+        x += [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:[url path] error:nil] count];
+    }
 
     if (x <= 0)
         [self removeStatusLabelForType:1];
     else
         [self setStatusLabel:[[ZKClass(ECStatusLabelDescription) alloc] initWithDefaultPositioningAndString:[NSString stringWithFormat:@"%lu", (unsigned long)x]] forType:1];
-}
-
-- (void)resetTrashIcon {
-    ZKOrig(void);
-    [self dk_updateCount];
-}
-
-- (void)changeState:(BOOL)arg1 {
-    if (watchdogs == nil)
-    {
-        watchdogs = [[NSMutableArray alloc] init];
-        Trashes = [[NSFileManager defaultManager] URLsForDirectory:NSTrashDirectory inDomains:NSUserDomainMask];
-        
-        __weak WBTrashTile *weakSelf = self;
-        for (NSURL *url in Trashes) {
-            SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:url.path
-                                                                   update:^{
-                                                                       [weakSelf dk_updateCount];
-                                                                   }];
-            [watchDog start];
-            [watchdogs addObject:watchDog];
-        }
-    }
-    [self dk_updateCount];
-    ZKOrig(void, arg1);
 }
 
 - (void)dealloc {

@@ -10,6 +10,7 @@
 		FA9B12151CB34BDA005FAC9F /* binventory.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9B12141CB34BDA005FAC9F /* binventory.m */; };
 		FA9B121F1CB34CC9005FAC9F /* SGDirWatchDog_LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA9B121C1CB34CC9005FAC9F /* SGDirWatchDog_LICENSE.txt */; };
 		FA9B12201CB34CC9005FAC9F /* SGDirWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9B121E1CB34CC9005FAC9F /* SGDirWatchdog.m */; };
+		FB6CAB061CE854F500E5ACB4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = FB6CAB051CE854F500E5ACB4 /* LICENSE */; };
 		FB950CF81CB8D80000063F4B /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FB950CF71CB8D80000063F4B /* ZKSwizzle.m */; };
 /* End PBXBuildFile section */
 
@@ -21,6 +22,7 @@
 		FA9B121D1CB34CC9005FAC9F /* SGDirWatchdog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDirWatchdog.h; sourceTree = "<group>"; };
 		FA9B121E1CB34CC9005FAC9F /* SGDirWatchdog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGDirWatchdog.m; sourceTree = "<group>"; };
 		FA9B12211CB34D28005FAC9F /* ECStatusLabelDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECStatusLabelDescription.h; sourceTree = "<group>"; };
+		FB6CAB051CE854F500E5ACB4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		FB950CF61CB8D80000063F4B /* ZKSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKSwizzle.h; sourceTree = "<group>"; };
 		FB950CF71CB8D80000063F4B /* ZKSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKSwizzle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,6 +61,7 @@
 				FB950CF71CB8D80000063F4B /* ZKSwizzle.m */,
 				FA9B12211CB34D28005FAC9F /* ECStatusLabelDescription.h */,
 				FA9B121C1CB34CC9005FAC9F /* SGDirWatchDog_LICENSE.txt */,
+				FB6CAB051CE854F500E5ACB4 /* LICENSE */,
 				FA9B121D1CB34CC9005FAC9F /* SGDirWatchdog.h */,
 				FA9B121E1CB34CC9005FAC9F /* SGDirWatchdog.m */,
 				FA9B12141CB34BDA005FAC9F /* binventory.m */,
@@ -123,6 +126,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB6CAB061CE854F500E5ACB4 /* LICENSE in Resources */,
 				FA9B121F1CB34CC9005FAC9F /* SGDirWatchDog_LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,7 +183,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -216,7 +220,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
