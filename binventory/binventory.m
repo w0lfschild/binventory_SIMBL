@@ -27,13 +27,20 @@ ZKSwizzleInterface(WBTrashTile, DOCKTrashTile, NSObject)
 @implementation WBTrashTile
 
 - (void)dk_updateCount {
-    long x = 0;
+    NSUInteger x = 0;
     
     for (NSURL *url in Trashes)
     {
+        FSRef	ref;
+        CFURLGetFSRef((CFURLRef)url, &ref);
+        FSCatalogInfo	catInfo;
+        
+        OSErr	err	= FSGetCatalogInfo(&ref, kFSCatInfoValence, &catInfo, NULL, NULL, NULL);
+        if (err == noErr)
+            x += catInfo.valence;
+        
         if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/.DS_Store", url.path]])
             x -= 1;
-        x += [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:[url path] error:nil] count];
     }
 
     if (x <= 0)
@@ -80,19 +87,26 @@ ZKSwizzleInterface(WBTile, Tile, NSObject)
         
         /* Set up watchdogs */
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"binventory: settting up watchdogs...");
-            
+            NSLog(@"binventory: setting up watchdogs...");
             watchdogs = [[NSMutableArray alloc] init];
-            Trashes = [[NSFileManager defaultManager] URLsForDirectory:NSTrashDirectory inDomains:NSUserDomainMask];
-            
-            for (NSURL *url in Trashes) {
-                SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:url.path
-                                                                       update:^{
-                                                                           [myTile dk_updateCount];
-                                                                       }];
-                [watchDog start];
-                [watchdogs addObject:watchDog];
+            NSMutableArray *trashCans = [[NSMutableArray alloc] init];
+            NSArray *volumes = [[NSFileManager defaultManager] mountedVolumeURLsIncludingResourceValuesForKeys:nil options:0];
+            for (NSURL *url in volumes)
+            {
+                NSError *error;
+                NSURL *trash = [[NSFileManager defaultManager] URLForDirectory:NSTrashDirectory inDomain:NSAllDomainsMask appropriateForURL:url create:NO error:&error];
+                if (trash != nil)
+                {
+                    [trashCans addObject:trash];
+                    SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:trash.path
+                                                                           update:^{
+                                                                               [myTile dk_updateCount];
+                                                                           }];
+                    [watchDog start];
+                    [watchdogs addObject:watchDog];
+                }
             }
+            Trashes = [trashCans copy];
             [myTile dk_updateCount];
         });
     });
