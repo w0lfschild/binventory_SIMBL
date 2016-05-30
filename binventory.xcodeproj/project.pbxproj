@@ -12,7 +12,7 @@
 		FA9B12201CB34CC9005FAC9F /* SGDirWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9B121E1CB34CC9005FAC9F /* SGDirWatchdog.m */; };
 		FB4978971CFC2645005A2253 /* ZKSwizzle_LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB4978961CFC2645005A2253 /* ZKSwizzle_LICENSE.txt */; };
 		FB4978A01CFC2778005A2253 /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FB49789F1CFC2778005A2253 /* ZKSwizzle.m */; };
-		FB6CAB061CE854F500E5ACB4 /* binventory_LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB6CAB051CE854F500E5ACB4 /* binventory_LICENSE.txt */; };
+		FB4978A31CFC2975005A2253 /* binventory_LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB4978A21CFC2975005A2253 /* binventory_LICENSE.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +26,7 @@
 		FB4978961CFC2645005A2253 /* ZKSwizzle_LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZKSwizzle_LICENSE.txt; sourceTree = "<group>"; };
 		FB49789E1CFC2778005A2253 /* ZKSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKSwizzle.h; sourceTree = "<group>"; };
 		FB49789F1CFC2778005A2253 /* ZKSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKSwizzle.m; sourceTree = "<group>"; };
-		FB6CAB051CE854F500E5ACB4 /* binventory_LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = binventory_LICENSE.txt; sourceTree = SOURCE_ROOT; };
+		FB4978A21CFC2975005A2253 /* binventory_LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = binventory_LICENSE.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +74,7 @@
 			children = (
 				FB4978961CFC2645005A2253 /* ZKSwizzle_LICENSE.txt */,
 				FA9B121C1CB34CC9005FAC9F /* SGDirWatchDog_LICENSE.txt */,
-				FB6CAB051CE854F500E5ACB4 /* binventory_LICENSE.txt */,
+				FB4978A21CFC2975005A2253 /* binventory_LICENSE.txt */,
 			);
 			name = LICENSES;
 			sourceTree = "<group>";
@@ -154,8 +154,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB4978A31CFC2975005A2253 /* binventory_LICENSE.txt in Resources */,
 				FB4978971CFC2645005A2253 /* ZKSwizzle_LICENSE.txt in Resources */,
-				FB6CAB061CE854F500E5ACB4 /* binventory_LICENSE.txt in Resources */,
 				FA9B121F1CB34CC9005FAC9F /* SGDirWatchDog_LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
