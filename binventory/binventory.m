@@ -16,6 +16,7 @@ static NSMutableArray *watchdogs = nil;
 static NSArray *Trashes = nil;
 
 @interface binventory : NSObject
+- (void)setupWatchDogs:(NSNotification*)aNotification;
 @end
 
 @interface NSObject (Tile)
@@ -26,7 +27,7 @@ static NSArray *Trashes = nil;
 ZKSwizzleInterface(WBTrashTile, DOCKTrashTile, NSObject)
 @implementation WBTrashTile
 
-- (void)dk_updateCount {
+- (void)wb_updateCount {
     NSUInteger x = 0;
     
     for (NSURL *url in Trashes)
@@ -78,8 +79,28 @@ ZKSwizzleInterface(WBTile, Tile, NSObject)
 
 @implementation binventory
 
++ (binventory*) sharedInstance
+{
+    static binventory* plugin = nil;
+    if (plugin == nil) {
+        plugin = [[binventory alloc] init];
+    }
+    return plugin;
+}
+
 + (void)load
 {
+    binventory *plugin = [binventory sharedInstance];
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:plugin
+                                                           selector:@selector(setupWatchDogs:)
+                                                               name:NSWorkspaceDidMountNotification
+                                                             object:[NSWorkspace sharedWorkspace]];
+    
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:plugin
+                                                           selector:@selector(setupWatchDogs:)
+                                                               name:NSWorkspaceDidUnmountNotification
+                                                             object:[NSWorkspace sharedWorkspace]];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         /* Wait for the tile to be found */
         while (myTile == nil)
@@ -87,30 +108,37 @@ ZKSwizzleInterface(WBTile, Tile, NSObject)
         
         /* Set up watchdogs */
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"binventory: setting up watchdogs...");
-            watchdogs = [[NSMutableArray alloc] init];
-            NSMutableArray *trashCans = [[NSMutableArray alloc] init];
-            NSArray *volumes = [[NSFileManager defaultManager] mountedVolumeURLsIncludingResourceValuesForKeys:nil options:0];
-            for (NSURL *url in volumes)
-            {
-                NSError *error;
-                NSURL *trash = [[NSFileManager defaultManager] URLForDirectory:NSTrashDirectory inDomain:NSAllDomainsMask appropriateForURL:url create:NO error:&error];
-                if (trash != nil)
-                {
-                    [trashCans addObject:trash];
-                    SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:trash.path
-                                                                           update:^{
-                                                                               [myTile dk_updateCount];
-                                                                           }];
-                    [watchDog start];
-                    [watchdogs addObject:watchDog];
-                }
-            }
-            Trashes = [trashCans copy];
-            [myTile dk_updateCount];
+            [plugin setupWatchDogs:nil];
         });
     });
     NSLog(@"binventory: loaded...");
+}
+
+- (void)setupWatchDogs:(NSNotification*)aNotification
+{
+    NSLog(@"binventory: setting up watchdogs...");
+    Trashes = nil;
+    watchdogs = [[NSMutableArray alloc] init];
+    NSMutableArray *trashCans = [[NSMutableArray alloc] init];
+    NSArray *volumes = [[NSFileManager defaultManager] mountedVolumeURLsIncludingResourceValuesForKeys:nil options:0];
+    for (NSURL *url in volumes)
+    {
+        NSError *error;
+        NSURL *trash = [[NSFileManager defaultManager] URLForDirectory:NSTrashDirectory inDomain:NSAllDomainsMask appropriateForURL:url create:NO error:&error];
+        if (trash != nil)
+        {
+            [trashCans addObject:trash];
+            SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:trash.path
+                                                                   update:^{
+                                                                       [myTile wb_updateCount];
+                                                                   }];
+            [watchDog start];
+            [watchdogs addObject:watchDog];
+        }
+    }
+    Trashes = [trashCans copy];
+    NSLog(@"%@", Trashes);
+    [myTile wb_updateCount];
 }
 
 @end
