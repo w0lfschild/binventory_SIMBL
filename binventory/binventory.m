@@ -32,14 +32,7 @@ ZKSwizzleInterface(WBTrashTile, DOCKTrashTile, NSObject)
     
     for (NSURL *url in Trashes)
     {
-        FSRef	ref;
-        CFURLGetFSRef((CFURLRef)url, &ref);
-        FSCatalogInfo	catInfo;
-        
-        OSErr	err	= FSGetCatalogInfo(&ref, kFSCatInfoValence, &catInfo, NULL, NULL, NULL);
-        if (err == noErr)
-            x += catInfo.valence;
-        
+        x += [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:[url path] error:nil] count];
         if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/.DS_Store", url.path]])
             x -= 1;
     }
@@ -137,7 +130,7 @@ ZKSwizzleInterface(WBTile, Tile, NSObject)
         }
     }
     Trashes = [trashCans copy];
-    NSLog(@"%@", Trashes);
+//    NSLog(@"%@", Trashes);
     [myTile wb_updateCount];
 }
 
