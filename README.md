@@ -11,11 +11,8 @@
 
 # Installation:
 
-1. Download [mySIMBL](https://github.com/w0lfschild/app_updates/raw/master/mySIMBL/mySIMBL_master.zip)
-2. Download [binventory](https://github.com/w0lfschild/binventory/raw/master/build/binventory.zip)
-3. Unzip downloads
-4. Open `binventory.bundle` with `mySIMBL.app`
-5. Restart Dock
+1. Download [MacForge](https://github.com/w0lfschild/app_updates/raw/master/MacForge/MacForge.zip)
+2. Download [binventory](https://www.macenhance.com/mflink?macforge://github.com/w0lfschild/myRepo/raw/master/mytweaks/org.w0lf.binventory)
 
 ### License:
 MIT. See the included LICENSE file in the repository for more information. 
